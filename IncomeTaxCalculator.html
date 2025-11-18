@@ -58,6 +58,21 @@ button:hover {
     color: black;
     font-weight: bold;
 }
+
+#clickMeButton {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#clickMeButton2 {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
 </style>
 </head>
 
@@ -84,9 +99,16 @@ button:hover {
         </div>
     </center>
 
+    <button id="clickMeButton" onclick="handleClickMe()">Click Me</button>
+    <button id="clickMeButton2">Click Me</button>
+
     <audio id="buttonSound" src="buttonsound.ogg"></audio>
+    <audio id="errorSound" src="errorsound.mp3"></audio>
+    <audio id="rawr" src="rawr.mp3"></audio>
 
     <script>
+        let clickCount = 0;
+
         function playSound(event, url) {
             event.preventDefault();
             const sound = document.getElementById("buttonSound");
@@ -97,12 +119,27 @@ button:hover {
             }, 400);
         }
 
+        function playSound2() {
+            const sound = document.getElementById("errorSound");
+            sound.currentTime = 0.5;
+            sound.play();
+        }
+
+        const button = document.getElementById("clickMeButton2");
+        const audio = document.getElementById("rawr");
+
+        button.addEventListener("click", () => {
+        audio.currentTime = 0;
+        audio.play();
+        });
+
         function calculateTax() {
             document.getElementById("checkInput").innerHTML = "";
             document.getElementById("result").innerHTML = "Income Tax: ₱0.00";
 
             if (document.getElementById("income").value === "") {
                 document.getElementById("checkInput").innerHTML = "<span style='font-size:22px; font-weight:bold;'>Please enter your number</span>";
+                playSound2();
                 return;
             }
 
@@ -123,15 +160,26 @@ button:hover {
                 tax = 2410000 + ((income - 8000000) * 0.35);
             } else {
                 document.getElementById("result").innerHTML = "Income Tax: ₱0.00";
-                document.getElementById("checkInput").innerHTML = "Invalid number.";
+                document.getElementById("checkInput").innerHTML = "<span style='font-size:22px; font-weight:bold;'>Invalid number</span>";
+                playSound2();
                 return;
             }
 
             tax = tax.toFixed(2);
             document.getElementById("result").innerHTML = "Income Tax: ₱" + tax;
+
+            // Easter Egg :>
+            if (income === 682007) {
+                document.getElementById("clickMeButton").style.display = "block";
+            }
+        }
+
+        function handleClickMe() {
+            clickCount++;
+            if (clickCount === 6) {
+                document.getElementById("clickMeButton2").style.display = "block";
+            }
         }
     </script>
 </body>
-
 </html>
-
