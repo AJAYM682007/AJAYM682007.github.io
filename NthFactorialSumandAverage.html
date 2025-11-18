@@ -4,6 +4,7 @@
 <style>
 body {
     background-color: lightgray;
+    font-family: Arial;
 }
 
 .container {
@@ -28,6 +29,29 @@ body {
 .container a:hover {
     background-color: RoyalBlue;
 }
+
+button {
+    padding: 12px 24px;
+    font-size: 18px;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: RoyalBlue;
+}
+
+#fac_label, #sum_label, #ave_label {
+    margin-top: 20px;
+    font-size: 26px;
+    color: darkblue;
+    font-weight: bold;
+}
 </style>
 </head>
 
@@ -37,6 +61,17 @@ body {
 
         <br><br>
 
+        <label for="num" style="font-size: 22px; font-weight: bold;">Enter a Number: </label>
+        <input id="num" type="number" style="font-size: 20px; padding: 8px; width: 200px; border-radius: 6px; border: 2px solid black;">
+
+        <br><br>
+        <button onclick="Calculate()">Calculate</button>
+
+        <div id="fac_label"></div>
+        <div id="sum_label"></div>
+        <div id="ave_label"></div>
+
+        <br><br>
         <div class="container">
             <a href="index.html" onclick="playSound(event, 'index.html')">Home Page</a>
         </div>
@@ -53,6 +88,46 @@ body {
             setTimeout(() => {
                 window.location.href = url;
             }, 400);
+        }
+
+        function Calculate() {
+            document.getElementById("fac_label").innerHTML = "";
+            document.getElementById("sum_label").innerHTML = "";
+            document.getElementById("ave_label").innerHTML = "";
+
+            if (document.getElementById("num").value === "") {
+                document.getElementById("fac_label").innerHTML = "<span style='color:darkblue; font-size:22px; font-weight:bold;'>Please enter your number</span>";
+                return;
+            }
+
+            let number = document.getElementById("num").value * 1;
+
+            if (number <= 1) {
+                document.getElementById("fac_label").innerHTML = "<span style='color:darkblue; font-size:22px; font-weight:bold;'>Invalid number</span>";
+                return;
+            }
+
+            let fac = 1, sum = 0, i = 1, j = 1;
+            
+            while (i <= number) {
+                fac *= i;
+                i++;
+            }
+
+            do {
+                sum += j;
+                j++;
+            } while (j <= number);
+            
+            let ave_sum = 0;
+            for (let k = 1; k <= number; k++) {
+                ave_sum += k;
+            }
+            let ave = ave_sum / number;
+            
+            document.getElementById("fac_label").innerHTML = "The factorial of " + number + " is: " + fac;
+            document.getElementById("sum_label").innerHTML = "The sum of the first " + number + " numbers is: " + sum;
+            document.getElementById("ave_label").innerHTML = "The average of the first " + number + " numbers is: " + ave;
         }
     </script>
 </body>
