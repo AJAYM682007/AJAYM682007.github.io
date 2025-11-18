@@ -181,6 +181,7 @@ tfoot td {
     </center>
 
     <audio id="buttonSound" src="buttonsound.ogg"></audio>
+    <audio id="errorSound" src="errorsound.mp3"></audio>
 
     <script>
         function playSound(event, url) {
@@ -191,6 +192,12 @@ tfoot td {
             setTimeout(() => {
                 window.location.href = url;
             }, 400);
+        }
+
+        function playSound2() {
+        const sound = document.getElementById("errorSound");
+        sound.currentTime = 0.5;
+        sound.play();
         }
 
         function getNumberValue(id) {
@@ -232,6 +239,7 @@ tfoot td {
             
             if (name === "" || daysWorked === 0 || dailyRate === 0 || document.getElementById('deduct_amount').value === "") {
                 alert("Please fill in all fields.");
+                playSound2();
                 return;
             }
 
@@ -290,7 +298,4 @@ tfoot td {
         window.onload = updateTotals;
     </script>
 </body>
-
 </html>
-
-
