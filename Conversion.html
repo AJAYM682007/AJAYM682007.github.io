@@ -85,13 +85,13 @@ body {
         </div>
 
         <br><br>
-
         <div class="container">
             <a href="index.html" onclick="playSound(event, 'index.html')">Home Page</a>
         </div>
     </center>
 
     <audio id="buttonSound" src="buttonsound.ogg"></audio>
+    <audio id="errorSound" src="errorsound.mp3"></audio>
 
     <script>
         function playSound(event, url) {
@@ -104,12 +104,19 @@ body {
             }, 400);
         }
 
+        function playSound2() {
+        const sound = document.getElementById("errorSound");
+        sound.currentTime = 0.5;
+        sound.play();
+        }
+
         function convert(type) {
             const input = document.getElementById("number").value;
             const resultDiv = document.getElementById("result");
 
             if (input === "") {
                 resultDiv.textContent = "Please enter your number";
+                playSound2();
                 return;
             }
 
@@ -135,7 +142,4 @@ body {
         }
     </script>
 </body>
-
 </html>
-
-
