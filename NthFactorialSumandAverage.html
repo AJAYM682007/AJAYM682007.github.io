@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-color: lightgray;
+}
+
+.container {
+    gap: 20px;
+    justify-content: center;
+    max-width: 132px;
+    margin: auto;
+}
+
+.container a {
+    display: block;
+    padding: 12px 24px;
+    font-size: 18px;
+    color: white;
+    background-color: black;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.container a:hover {
+    background-color: RoyalBlue;
+}
+</style>
+</head>
+
+<body>
+    <center> 
+        <h2 style="font-size: 45px; color: dodgerblue;font-family: Arial;"><b>Nth Factorial, Sum and Average</b></h2>
+
+        <br><br>
+
+        <div class="container">
+            <a href="index.html" onclick="playSound(event, 'index.html')">Home Page</a>
+        </div>
+    </center>
+
+    <audio id="buttonSound" src="buttonsound.ogg"></audio>
+
+    <script>
+        function playSound(event, url) {
+            event.preventDefault();
+            const sound = document.getElementById("buttonSound");
+            sound.currentTime = 0;
+            sound.play();
+            setTimeout(() => {
+                window.location.href = url;
+            }, 400);
+        }
+    </script>
+</body>
+</html>
