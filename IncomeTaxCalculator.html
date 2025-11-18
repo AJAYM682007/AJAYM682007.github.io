@@ -4,6 +4,7 @@
 <style>
 body {
     background-color: lightgray;
+    font-family: Arial;
 }
 
 .container {
@@ -28,6 +29,35 @@ body {
 .container a:hover {
     background-color: RoyalBlue;
 }
+
+button {
+    padding: 12px 24px;
+    font-size: 18px;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: RoyalBlue;
+}
+
+#checkInput {
+    margin-top: 15px;
+    font-size: 18px;
+    color: darkblue;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 26px;
+    color: black;
+    font-weight: bold;
+}
 </style>
 </head>
 
@@ -37,6 +67,18 @@ body {
 
         <br><br>
 
+        <label for="income" style="font-size: 26px;"><b>Enter Income: </b></label>
+        <input id="income" type="number" style="font-size: 20px; padding: 10px; width: 150px; border-radius: 6px; border: 2px solid black;">
+
+        <br><br>
+
+        <div id="result">Income Tax: ₱0.00</div>
+
+        <button onclick="calculateTax()">Calculate Tax</button>
+
+        <div id="checkInput"></div>
+
+        <br><br>
         <div class="container">
             <a href="index.html" onclick="playSound(event, 'index.html')">Home Page</a>
         </div>
@@ -53,6 +95,40 @@ body {
             setTimeout(() => {
                 window.location.href = url;
             }, 400);
+        }
+
+        function calculateTax() {
+            document.getElementById("checkInput").innerHTML = "";
+            document.getElementById("result").innerHTML = "Income Tax: ₱0.00";
+
+            if (document.getElementById("income").value === "") {
+                document.getElementById("checkInput").innerHTML = "<span style='font-size:22px; font-weight:bold;'>Please enter your number</span>";
+                return;
+            }
+
+            let income = document.getElementById("income").value * 1;
+            let tax;
+
+            if (income > 0 && income <= 250000) {
+                tax = 0;
+            } else if (income > 250000 && income <= 400000) {
+                tax = (income - 250000) * 0.20;
+            } else if (income > 400000 && income <= 800000) {
+                tax = 30000 + ((income - 400000) * 0.25);
+            } else if (income > 800000 && income <= 2000000) {
+                tax = 130000 + ((income - 800000) * 0.30); 
+            } else if (income > 2000000 && income <= 8000000) {
+                tax = 490000 + ((income - 2000000) * 0.32);
+            } else if (income > 8000000) {
+                tax = 2410000 + ((income - 8000000) * 0.35);
+            } else {
+                document.getElementById("result").innerHTML = "Income Tax: ₱0.00";
+                document.getElementById("checkInput").innerHTML = "Invalid number.";
+                return;
+            }
+
+            tax = tax.toFixed(2);
+            document.getElementById("result").innerHTML = "Income Tax: ₱" + tax;
         }
     </script>
 </body>
